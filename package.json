@@ -1,0 +1,24 @@
+{
+  "name": "paddle-game",
+  "version": "1.0.0",
+  "description": "Paddle game using pure JS",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeDand/paddle-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeDand/paddle-game/issues"
+  },
+  "homepage": "https://github.com/TeDand/paddle-game#readme",
+  "devDependencies": {
+    "parcel": "^2.4.1"
+  }
+}

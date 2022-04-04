@@ -1,2 +1,10 @@
 # paddle-game
-Paddle game use pure JS
+Paddle game using pure JS
+
+## Running
+
+Run using defined script:
+
+```bash
+npm start
+```
