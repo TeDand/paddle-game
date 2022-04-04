@@ -1,3 +1,4 @@
+'use strict';
 export default class InputHandler {
   constructor(game) {
     document.addEventListener("keydown", (event) => {
@@ -10,6 +11,9 @@ export default class InputHandler {
           break;
         case "Escape":
           game.togglePause();
+          break;
+        case " ":
+          game.start();
           break;
       }
     });

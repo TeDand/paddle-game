@@ -1,3 +1,4 @@
+'use strict';
 export default class Paddle {
   constructor(game) {
     this.game = game;

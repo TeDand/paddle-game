@@ -1,3 +1,4 @@
+'use strict';
 export function detectCollision(ball, gameObject) {
   // check collision with paddle
   let topOfBall = ball.position.y;

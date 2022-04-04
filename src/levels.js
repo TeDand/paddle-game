@@ -1,3 +1,4 @@
+'use strict';
 import Brick from "/src/brick";
 
 export function buildLevel(game, level) {
