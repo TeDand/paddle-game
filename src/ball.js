@@ -1,3 +1,5 @@
+import { detectCollision } from "/src/collisionDetection";
+
 export default class Ball {
   constructor(game) {
     this.game = game;
@@ -8,7 +10,7 @@ export default class Ball {
     };
     this.position = {
       x: 10,
-      y: 10,
+      y: 400,
     }
     this.size = 16;
   }
@@ -22,6 +24,7 @@ export default class Ball {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 
+    // check collision with boundaries
     if (this.position.x + this.size > this.game.gameWidth || this.position.x <
       0)
       this.speed.x = -this.speed.x
@@ -29,15 +32,10 @@ export default class Ball {
       .y < 0)
       this.speed.y = -this.speed.y
 
-    let bottomOfBall = this.position.y + this.size;
-    let topOfPaddle = this.game.paddle.position.y;
-    let leftSideOfPaddle = this.game.paddle.position.x;
-    let rightSideOfPaddle = this.game.paddle.position.x + this.game.paddle
-      .width;
-
-    if (bottomOfBall >= topOfPaddle &&
-      this.position.x >= leftSideOfPaddle &&
-      this.position.x + this.size <= rightSideOfPaddle)
+    // check collision with paddle
+    if (detectCollision(this, this.game.paddle))
       this.speed.y = -this.speed.y;
+
+    // check collision with bricks
   }
 }
