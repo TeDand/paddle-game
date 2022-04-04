@@ -16,7 +16,7 @@ export default class Game {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.gameState = GAMESTATE.MENU;
-    this.lives = 1;
+    this.lives = 3;
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
     this.gameObjects = [];
@@ -33,9 +33,13 @@ export default class Game {
   }
 
   update(deltaTime) {
+    if (this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
+
     if (this.gameState === GAMESTATE.PAUSED ||
-      this.gameState === GAMESTATE.MENU)
+      this.gameState === GAMESTATE.MENU ||
+      this.gameState === GAMESTATE.GAMEOVER)
       return;
+
     this.gameObjects.forEach((object) => {
       object.update(deltaTime);
     });
@@ -66,12 +70,22 @@ export default class Game {
       ctx.fillText("Press SPACEBAR to start", this.gameWidth / 2, this
         .gameHeight / 2)
     }
+
+    if (this.gameState === GAMESTATE.GAMEOVER) {
+      ctx.fillStyle = "rgba(0,0,0,1)";
+      ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText("GAME OVER", this.gameWidth / 2, this
+        .gameHeight / 2)
+    }
   }
 
   togglePause() {
     if (this.gameState === GAMESTATE.PAUSED)
       this.gameState = GAMESTATE.RUNNING;
-    if (this.gameState === GAMESTATE.RUNNING)
-      this.gameState = GAMESTATE.PAUSED
+    else
+      this.gameState = GAMESTATE.PAUSED;
   }
 }
