@@ -42,6 +42,7 @@ export default class Ball {
     }
 
     // check collision with paddle
+    // TODO: fix buggy collision when hitting on the side
     if (detectCollision(this, this.game.paddle))
       this.speed.y = -this.speed.y;
   }

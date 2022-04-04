@@ -2,13 +2,14 @@
 import Paddle from "/src/paddle";
 import InputHandler from "/src/input";
 import Ball from "/src/ball";
-import { buildLevel, level1 } from "/src/levels";
+import { buildLevel, level1, level2 } from "/src/levels";
 
 const GAMESTATE = {
   PAUSED: 0,
   RUNNING: 1,
   MENU: 2,
-  GAMEOVER: 3
+  GAMEOVER: 3,
+  NEWLEVEL: 4,
 }
 
 export default class Game {
@@ -19,15 +20,20 @@ export default class Game {
     this.lives = 3;
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
+    this.bricks = [];
     this.gameObjects = [];
+    this.levels = [level1, level2];
+    this.currentLevel = 0;
     new InputHandler(this);
   }
 
   start() {
-    if (this.gameState !== GAMESTATE.MENU) return;
+    if (this.gameState !== GAMESTATE.MENU &&
+      this.gameState !== GAMESTATE.NEWLEVEL) return;
 
-    let bricks = buildLevel(this, level1);
-    this.gameObjects = [this.ball, this.paddle, ...bricks];
+    this.bricks = buildLevel(this, this.levels[this.currentLevel]);
+    this.ball.reset();
+    this.gameObjects = [this.ball, this.paddle];
 
     this.gameState = GAMESTATE.RUNNING;
   }
@@ -40,15 +46,21 @@ export default class Game {
       this.gameState === GAMESTATE.GAMEOVER)
       return;
 
-    this.gameObjects.forEach((object) => {
+    if (this.bricks.length === 0) {
+      this.currentLevel++;
+      this.gameState = GAMESTATE.NEWLEVEL;
+      this.start();
+    }
+
+    [...this.gameObjects, ...this.bricks].forEach((object) => {
       object.update(deltaTime);
     });
-    this.gameObjects = this.gameObjects.filter((object) => !object
+    this.bricks = this.bricks.filter((object) => !object
       .markedForDeletion);
   }
 
   draw(ctx) {
-    this.gameObjects.forEach((object) => {
+    [...this.gameObjects, ...this.bricks].forEach((object) => {
       object.draw(ctx);
     });
 
@@ -83,6 +95,7 @@ export default class Game {
   }
 
   togglePause() {
+    // TODO: Fix that you can pause when in the menu
     if (this.gameState === GAMESTATE.PAUSED)
       this.gameState = GAMESTATE.RUNNING;
     else
