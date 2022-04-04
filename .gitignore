@@ -91,4 +91,4 @@ lerna-debug.log
 Thumbs.db
 
 # Parcel
-/.parcel-cache
+.parcel-cache/
