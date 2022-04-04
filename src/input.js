@@ -1,4 +1,3 @@
-'use strict';
 export default class InputHandler {
   constructor(game) {
     document.addEventListener("keydown", (event) => {

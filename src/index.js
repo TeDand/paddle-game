@@ -1,4 +1,3 @@
-'use strict';
 import Game from "/src/game";
 
 var canvas = document.getElementById("gameScreen");

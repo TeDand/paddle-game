@@ -1,4 +1,3 @@
-'use strict';
 import Paddle from "/src/paddle";
 import InputHandler from "/src/input";
 import Ball from "/src/ball";

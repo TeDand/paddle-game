@@ -1,4 +1,3 @@
-'use strict';
 import { detectCollision } from "/src/collisionDetection";
 
 export default class Ball {
