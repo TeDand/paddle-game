@@ -48,6 +48,12 @@ export default class Game {
       this.lives = this.maxLives;
     }
 
+    if (this.currentLevel === this.maxLevels) {
+      this.gameState = GAMESTATE.COMPLETED;
+      this.lives = this.maxLives;
+      this.currentLevel = 0;
+    }
+
     if (this.gameState === GAMESTATE.PAUSED ||
       this.gameState === GAMESTATE.MENU ||
       this.gameState === GAMESTATE.GAMEOVER ||
@@ -59,12 +65,6 @@ export default class Game {
       this.lives = this.maxLives;
       this.gameState = GAMESTATE.NEWLEVEL;
       this.start();
-    }
-
-    if (this.currentLevel === this.maxLevels) {
-      this.gameState = GAMESTATE.COMPLETED;
-      this.lives = this.maxLives;
-      this.currentLevel = 0;
     }
 
     [...this.gameObjects, ...this.bricks].forEach((object) => {

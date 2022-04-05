@@ -1,4 +1,7 @@
-import { detectCollision } from "/src/collisionDetection";
+import {
+  detectVerticalCollision,
+  detectHorizontalCollision
+} from "/src/collisionDetection";
 
 export default class Ball {
   constructor(game) {
@@ -10,8 +13,8 @@ export default class Ball {
 
   reset() {
     this.speed = {
-      x: 4,
-      y: 4,
+      x: 5,
+      y: 5,
     };
     this.position = {
       x: 10,
@@ -41,8 +44,25 @@ export default class Ball {
     }
 
     // check collision with paddle
-    // TODO: fix buggy collision when hitting on the side
-    if (detectCollision(this, this.game.paddle))
+    // TODO: max more robust system for collision detection
+    if (detectVerticalCollision(this, this.game.paddle)) {
+      if (this.speed.y > 0)
+        this.position.y = this.game.paddle.position.y - this.size;
+      else
+        this.position.y = this.game.paddle.position.y + this.game.paddle
+        .height + this.size;
+
       this.speed.y = -this.speed.y;
+    }
+
+    if (detectHorizontalCollision(this, this.game.paddle)) {
+      if (this.speed.x > 0)
+        this.position.x = this.game.paddle.position.x - this.size;
+      else
+        this.position.x = this.game.paddle.position.x + this.game.paddle
+        .width + this.size;
+
+      this.speed.x = -this.speed.x;
+    }
   }
 }
