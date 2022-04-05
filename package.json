@@ -2,11 +2,10 @@
   "name": "paddle-game",
   "version": "1.0.0",
   "description": "Paddle game using pure JS",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html --open",
-    "build": "parcel build index.html",
-    "predeploy": "rm -rf dist && parcel build ./*.html --public-url https://github.com/TeDand/paddle-game",
+    "build": "rm -rf dist && parcel build index.html --public-url ./",
+    "predeploy": "rm -rf dist && parcel build index.html --public-url ./",
     "deploy": "gh-pages -d dist"
   },
   "repository": {

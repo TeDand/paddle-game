@@ -45,6 +45,7 @@ export default class Game {
       this.gameState === GAMESTATE.GAMEOVER)
       return;
 
+    // TODO: Create winning state/screen
     if (this.bricks.length === 0) {
       this.currentLevel++;
       this.gameState = GAMESTATE.NEWLEVEL;
