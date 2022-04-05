@@ -64,13 +64,18 @@ export default class Game {
       object.draw(ctx);
     });
 
+    ctx.font = "15px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(`Lives: ${this.lives}`, 35, 22);
+
     if (this.gameState === GAMESTATE.PAUSED) {
       ctx.fillStyle = "rgba(0,0,0,0.5)";
       ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
       ctx.font = "30px Arial";
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
-      ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2)
+      ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
     }
 
     if (this.gameState === GAMESTATE.MENU) {
@@ -80,7 +85,7 @@ export default class Game {
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText("Press SPACEBAR to start", this.gameWidth / 2, this
-        .gameHeight / 2)
+        .gameHeight / 2);
     }
 
     if (this.gameState === GAMESTATE.GAMEOVER) {
@@ -90,7 +95,7 @@ export default class Game {
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText("GAME OVER", this.gameWidth / 2, this
-        .gameHeight / 2)
+        .gameHeight / 2);
     }
   }
 

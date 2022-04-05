@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Paddle game using pure JS",
   "scripts": {
-    "start": "parcel index.html --open",
+    "start": "parcel index.html --no-cache --open",
     "build": "rm -rf dist && parcel build index.html --public-url ./",
     "predeploy": "rm -rf dist && parcel build index.html --public-url ./",
     "deploy": "gh-pages -d dist"
