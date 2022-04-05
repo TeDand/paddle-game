@@ -28,17 +28,21 @@ export default class Game {
 
   start() {
     if (this.gameState !== GAMESTATE.MENU &&
-      this.gameState !== GAMESTATE.NEWLEVEL) return;
+      this.gameState !== GAMESTATE.NEWLEVEL &&
+      this.gameState !== GAMESTATE.GAMEOVER) return;
 
     this.bricks = buildLevel(this, this.levels[this.currentLevel]);
     this.ball.reset();
     this.gameObjects = [this.ball, this.paddle];
-
     this.gameState = GAMESTATE.RUNNING;
   }
 
   update(deltaTime) {
-    if (this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
+    if (this.lives === 0) {
+      this.gameState = GAMESTATE.GAMEOVER;
+      this.currentLevel = 0;
+      this.lives = 3;
+    }
 
     if (this.gameState === GAMESTATE.PAUSED ||
       this.gameState === GAMESTATE.MENU ||
@@ -96,14 +100,16 @@ export default class Game {
       ctx.textAlign = "center";
       ctx.fillText("GAME OVER", this.gameWidth / 2, this
         .gameHeight / 2);
+      ctx.fillText("Press SPACEBAR to re-start", this.gameWidth / 2, this
+        .gameHeight / 2 + 35);
     }
   }
 
   togglePause() {
-    // TODO: Fix that you can pause when in the menu
-    if (this.gameState === GAMESTATE.PAUSED)
+    if (this.gameState === GAMESTATE.PAUSED) {
       this.gameState = GAMESTATE.RUNNING;
-    else
+    } else if (this.gameState === GAMESTATE.RUNNING) {
       this.gameState = GAMESTATE.PAUSED;
+    }
   }
 }
